@@ -115,7 +115,6 @@
 
             //轮播图跳转函数
             swiperHandler(e) {
-                console.log(e);
                 wx.navigateTo({
                     url: `/subpck/goods_detail/goods_detail?goods_id=${e}`
                 })
