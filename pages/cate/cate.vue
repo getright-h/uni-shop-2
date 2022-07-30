@@ -97,7 +97,8 @@
                 //同切换二级 分类
                 this.cateV2 = this.cateList[i].children
                 //使右侧滚动条回到顶部
-                // 让 scrollTop 的值在 0 与 1 之间切换
+                // 让 scrollTop 的值在 0 与 1 之间切换 用户不会感到差别
+                //因为光是让是scrolltop = 0 的话，编译器不会解析，需要两次的值不一样
                 this.scrollTop = this.scrollTop === 0 ? 1 : 0
             },
             //跳转到商品详情页
