@@ -1,5 +1,7 @@
 <template>
     <view>
+        <!-- <my-search></my-search> -->
+        <my-search @pageSearch='goSearch'></my-search>
         <!-- container -->
         <view class="cate-box-container">
             <!-- left side -->
@@ -59,11 +61,18 @@
         onLoad() {
             //获取用户屏幕的可用高度
             const sysInfo = uni.getSystemInfoSync()
-            this.wh = sysInfo.windowHeight
+            //减去50px 是因为自定义的搜索框有50高度
+            this.wh = sysInfo.windowHeight - 50;
             //获取分类数据
             this.getCatrList()
         },
         methods: {
+            //自定义事件 跳转到搜索页
+            goSearch() {
+                uni.navigateTo({
+                    url: '/subpck/search/search'
+                })
+            },
             //分类请求
             async getCatrList() {
                 const {

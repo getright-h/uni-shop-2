@@ -27,8 +27,18 @@
             "path": "goods_list/goods_list",
             "style": {}
 
-        }]
+        }    ,{
+                    "path" : "search/search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
     }],
+    "components": "true",
     "tabBar": {
         "selectedColor": "#C00000",
         "list": [{

@@ -1,5 +1,9 @@
 <template>
     <view>
+        <!-- 搜索 -->
+        <view class="search-box">
+            <my-search @pageSearch='goSearch'></my-search>
+        </view>
         <!-- 轮播图 -->
         <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
             <swiper-item v-for=" (item,index) in  swiperList" :key="index">
@@ -66,6 +70,12 @@
             this.getFloorList()
         },
         methods: {
+            //自定义事件 跳转到搜索页
+            goSearch() {
+                uni.navigateTo({
+                    url: '/subpck/search/search'
+                })
+            },
             //轮播图请求
             async getSwiperList() {
                 const {
@@ -132,6 +142,13 @@
 </script>
 
 <style lang="scss">
+    //搜索框吸顶
+    .search-box {
+        position: sticky;
+        top: 0px;
+        z-index: 999;
+    }
+
     // 轮播图
     swiper {
         height: 330rpx;
