@@ -20,7 +20,7 @@ $http.afterRequest = function(options) {
 }
 
 //封装失败响应提示
-uni.$showToast = function(title = '请求失败', duration = 1500) {
+uni.$showMsg = function(title = '请求失败', duration = 1500) {
     uni.showToast({
         title,
         duration,

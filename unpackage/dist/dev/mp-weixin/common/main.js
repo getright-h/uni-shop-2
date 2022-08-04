@@ -46,7 +46,7 @@ uni.$http = _requestMiniprogram.$http; //配置基本url
 _requestMiniprogram.$http.baseUrl = 'https://api-ugo-web.itheima.net'; //请求拦截器
 _requestMiniprogram.$http.beforeRequest = function (options) {wx.showLoading('加载中....');}; //响应拦截器 
 _requestMiniprogram.$http.afterRequest = function (options) {wx.hideLoading();}; //封装失败响应提示
-uni.$showToast = function () {var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '请求失败';var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1500;uni.showToast({ title: title, duration: duration, icon: 'error' });};_vue.default.config.productionTip = false;_App.default.mpType = 'app';var app = new _vue.default(_objectSpread({}, _App.default));createApp(app).$mount();
+uni.$showMsg = function () {var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '请求失败';var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1500;uni.showToast({ title: title, duration: duration, icon: 'error' });};_vue.default.config.productionTip = false;_App.default.mpType = 'app';var app = new _vue.default(_objectSpread({}, _App.default));createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
 /***/ }),
