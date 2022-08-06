@@ -20,6 +20,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "goods_list",
+                    "pathName": "subpck/goods_list/goods_list",
+                    "query": "query=热",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
