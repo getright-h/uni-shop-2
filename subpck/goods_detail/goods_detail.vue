@@ -37,25 +37,51 @@
         <!-- 底部导航 -->
         <view class="goods-nav-bottom">
             <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup"
-                @click="onClick" />
+                @click="onClick" @buttonClick="buttonClick" />
         </view>
 
     </view>
 </template>
 
 <script>
+    //导入vuex命名空间
+    import {
+        mapState,
+        mapMutations,
+        mapGetters
+    } from 'vuex'
     export default {
         onLoad(options) {
             //根据路由获取对应商品id
-            const goods_id = options.goods_id
+            const goods_id = options.c_id || options.goods_id
+            console.log(options, '!');
             //发送请求
             this.getGoodsDetail(goods_id)
+
         },
         computed: {
+            //vuex映射数据
+            ...mapState('m_cart', ['cart']),
+            ...mapGetters('m_cart', ['total']),
+
             // 解决请求未返回时，显示undefined 判断存放响应信息的对象是否为空
             isNull() {
                 let foo = Object.keys(this.goods_info)
                 return foo.length
+            }
+        },
+        watch: {
+            total: {
+                handler(newVal) {
+                    //找到底部导航购物车栏的配置对象
+                    const findRes = this.options.find((i) => {
+                        return i.text === '购物车'
+                    })
+                    if (findRes) {
+                        findRes.info = newVal
+                    }
+                },
+                immediate: true
             }
         },
         data() {
@@ -87,6 +113,23 @@
             };
         },
         methods: {
+            // 导入map映射
+            ...mapMutations('m_cart', ['addToCart']),
+            // 点击加入购物车，调用 addToCart 函数
+            buttonClick(e) {
+                if (e.content.text === '加入购物车') {
+                    //组织一个商品的信息对象
+                    const goods = {
+                        goods_id: this.goods_info.goods_id, // 商品的Id
+                        goods_name: this.goods_info.goods_name, // 商品的名称
+                        goods_price: this.goods_info.goods_price, // 商品的价格
+                        goods_count: 1, // 商品的数量
+                        goods_small_logo: this.goods_info.goods_small_logo, // 商品的图片
+                        goods_state: true // 商品的勾选状态
+                    }
+                    this.addToCart(goods)
+                }
+            },
             //点击跳转到购物车
             onClick(e) {
                 if (e.content.text === "购物车") {

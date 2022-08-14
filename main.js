@@ -1,4 +1,7 @@
 import App from './App'
+
+import store from '@/store/store.js'
+
 //引入网络请求包
 import {
     $http
@@ -33,7 +36,9 @@ import Vue from 'vue'
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
-    ...App
+    ...App,
+    // 挂载vuex
+    store
 })
 app.$mount()
 // #endif

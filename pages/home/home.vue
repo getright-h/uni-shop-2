@@ -18,7 +18,8 @@
         <!-- 分类导航 -->
         <view class="nav">
 
-            <view @click="navHandler(item.name)" class="nav_item" v-for="(item,index) in navList" :key="index">
+            <view @click="navHandler(item.name)" class="nav_item" v-for="(item,index) in navList"
+                :key="index">
                 <image :src="item.image_src"></image>
             </view>
         </view>
@@ -32,13 +33,17 @@
                     <!-- left -->
                     <!-- item.product_list[0].url 是请求时经过处理后拼接后的路由跳转地址 -->
                     <navigator :url="item.product_list[0].url" class="left_box">
-                        <img :src="item.product_list[0].image_src" :style="{width:item.product_list[0].image_width + 'rpx'}" mode="widthFix">
+                        <img :src="item.product_list[0].image_src"
+                            :style="{width:item.product_list[0].image_width + 'rpx'}"
+                            mode="widthFix">
                     </navigator>
                     <!-- right -->
                     <view class="right_box">
                         <!-- 右边小盒子，除开第一个外的其他四个 -->
-                        <navigator :url="item2.url" class="right_box_item" v-for="(item2,key2) in item.product_list" :key="key2" v-if="key2 !== 0">
-                            <image :src="item2.image_src" :style="{width:item2.image_width + 'rpx'}" mode="widthFix"></image>
+                        <navigator :url="item2.url" class="right_box_item"
+                            v-for="(item2,key2) in item.product_list" :key="key2" v-if="key2 !== 0">
+                            <image :src="item2.image_src" :style="{width:item2.image_width + 'rpx'}"
+                                mode="widthFix"></image>
                         </navigator>
                     </view>
                 </view>
@@ -49,7 +54,9 @@
 </template>
 
 <script>
+    import badgeMix from '@/mixins/tabbar-badge.js'
     export default {
+        mixins: [badgeMix],
         data() {
             return {
                 //轮播图
@@ -93,7 +100,8 @@
                 const {
                     data: res
                 } = await uni.$http.get('/api/public/v1/home/catitems')
-                res.meta.status === 200 ? this.navList = res.message : uni.$showToast('分类导航请求失败')
+                res.meta.status === 200 ? this.navList = res.message : uni.$showToast(
+                    '分类导航请求失败')
                 /* if (res.meta.status !== 200) {
                      return uni.$showToast('分类导航请求失败')
                  } else {
@@ -115,7 +123,8 @@
                         item.product_list.forEach(item2 => {
                             //对每个跳转路径做处理，拿到 ? 分割后的参数后半段(下标为1),并且拼接上分包地址
                             // "/pages/goods_list?query=服饰"
-                            item2.url = '/subpck/goods_list/goods_list?' + item2.navigator_url.split('?')[1]
+                            item2.url = '/subpck/goods_list/goods_list?' + item2
+                                .navigator_url.split('?')[1]
                         })
                     })
                     this.floorList = res.message

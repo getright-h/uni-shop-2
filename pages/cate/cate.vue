@@ -8,14 +8,16 @@
             <scroll-view class="left-box" scroll-y="true" :style="{height :wh + 'px'}">
                 <!-- block  -->
                 <block v-for="(item,index) in cateList" :key="index">
-                    <view :class="['left-scroll-view-item',index === active ? 'active' : '' ]" @click="activeHandler(index)">
+                    <view :class="['left-scroll-view-item',index === active ? 'active' : '' ]"
+                        @click="activeHandler(index)">
                         {{item.cat_name}}
                     </view>
                 </block>
             </scroll-view>
             <!-- right side -->
             <!-- 点击左侧一级分类时，右侧需要回到顶部 -->
-            <scroll-view class="right-box" :scroll-top="scrollTop" scroll-y="true" :style="{height : wh + 'px'}">
+            <scroll-view class="right-box" :scroll-top="scrollTop" scroll-y="true"
+                :style="{height : wh + 'px'}">
                 <!-- 二级分类 -->
                 <view class="cate-v2" v-for="(item2,index2) in cateV2" :key="index2">
                     <!-- 二级 标题 -->
@@ -24,7 +26,8 @@
                     </view>
                     <!-- 三级分类 -->
                     <view class="cate-v3">
-                        <view @click="goGoodsList(item3.cat_id)" class="cate-v3-item" v-for="(item3,index3) in item2.children" :key="index3">
+                        <view @click="goGoodsList(item3.cat_id)" class="cate-v3-item"
+                            v-for="(item3,index3) in item2.children" :key="index3">
 
                             <image :src="item3.cat_icon" mode=""></image>
                             <text>
@@ -41,7 +44,9 @@
 </template>
 
 <script>
+    import badgeMix from '@/mixins/tabbar-badge.js'
     export default {
+        mixins: [badgeMix],
         data() {
             return {
                 //用户屏幕高度
@@ -91,7 +96,8 @@
                             item2.children.forEach(item3 => {
                                 if (!item3) return
                                 // item3.cat_icon = 'xx'
-                                const foo = item3.cat_icon.replace(this.cateReg, "web");
+                                const foo = item3.cat_icon.replace(this
+                                    .cateReg, "web");
                                 item3.cat_icon = foo
                             })
                         })
@@ -112,8 +118,9 @@
             },
             //跳转到商品详情页
             goGoodsList(v) {
+                console.log(v);
                 uni.navigateTo({
-                    url: '/subpck/goods_detail/goods_detail?cid=' + v
+                    url: "/subpck/goods_list/goods_list?cid=" + v
                 })
             }
         }
