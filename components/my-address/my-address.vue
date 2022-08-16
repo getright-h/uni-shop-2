@@ -1,11 +1,11 @@
 <template>
     <view>
         <!-- 选择收货地址 -->
-        <view class="address-choose-box" v-if="JSON.stringify(address) === '{}'">
+        <view class="address-choose-box" v-if="isShowAddress">
             <button type="primary" size="mini" @click="chooseAddress">请选择收货地址+</button>
         </view>
         <!-- 收货信息展示 -->
-        <view class="address-info-box" v-else>
+        <view class="address-info-box" v-else @click="chooseAddress">
             <view class="row1">
                 <view class="row1-left">
                     <view class="username">收货人：<text>{{address.userName}}</text></view>
@@ -57,11 +57,12 @@
             ...mapGetters('m_user', ['addstr']),
 
             // 控制收货地址的显示
-            /* isShowAddress() {
-                console.log(this.$store.state.address);
-                return JSON.stringify(this.address) === '{}'
-            } */
+            isShowAddress() {
+                let foo = Object.keys(this.address).length
+                return !foo
+            }
         },
+
     }
 </script>
 

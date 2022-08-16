@@ -15,6 +15,12 @@ $http.baseUrl = 'https://api-ugo-web.itheima.net'
 //请求拦截器
 $http.beforeRequest = function(options) {
     wx.showLoading('加载中....')
+    // 判断是否是需要权限的api接口，发起支付就需要权限
+    if (options.url.indexOf('/my/')) {
+        options.header = {
+            authorization: store.state.m_user.token
+        }
+    }
 }
 
 //响应拦截器 

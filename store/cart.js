@@ -9,7 +9,8 @@ export default {
         // 每个商品的信息对象，都包含如下 6 个属性：
         // { goods_id, goods_name, goods_price, goods_count, goods_small_logo, goods_state }
         // 获取本地的购物车信息
-        cart: JSON.parse(uni.getStorageSync('cart') || '[]')
+        cart: JSON.parse(uni.getStorageSync('cart') || '[]'),
+        redirectInfo: null
 
     }),
     mutations: {
@@ -69,6 +70,10 @@ export default {
         changeAllCheckState(state, newState) {
             state.cart.forEach(i => i.goods_state = newState)
             this.commit('m_cart/saveCartStorage')
+        },
+        // 更新跳转信息
+        updataRedirectInfo(state, info) {
+            state.redirectInfo = info
         }
     },
     getters: {
@@ -78,20 +83,20 @@ export default {
             state.cart.forEach(i => count += i.goods_count)
             return count
         },
-        // 勾选商品总数 保留小数两位
+        // 勾选商品总数
         checkCount(state) {
             return state.cart.filter(i => {
                 return i.goods_state
             }).reduce((totle, curr) => {
                 return totle += curr.goods_count
-            }, 0).toFixed(2)
+            }, 0)
         },
-        // 勾选商品总价
+        // 勾选商品总价 保留小数两位
         checkAmount(state) {
             return state.cart.filter(i => i.goods_state).reduce((amount, curr) => {
                 return amount += curr
                     .goods_count * curr.goods_price
-            }, 0)
+            }, 0).toFixed(2)
         }
     }
 }
